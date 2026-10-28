@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/*
+ * Paleta sobria: tinta (zinc-900, nunca negro absoluto), tinta-2 para texto secundario (zinc-500, 4.6:1 sobre el
+ * fondo), papel y hueso para fondos, linea para bordes finos y tenues, oro como acento y rojo/verde/azul solo para
+ * estados. Los valores de COLOR_TEMA y COLOR_MARCA en src/lib/marca.ts deben coincidir con papel y tinta.
+ */
+@theme {
+  --color-tinta: #18181b;
+  /* 4,5:1 también sobre hueso (contraste.test.ts). */
+  --color-tinta-2: #686872;
+  --color-papel: #f9f9f6;
+  --color-hueso: #f1f1ee;
+  --color-linea: #e4e4e7;
+  /* Borde de un CAMPO (input, select, textarea): 3:1 sobre blanco. `linea` es solo para tarjetas y separadores. */
+  --color-borde-campo: #8b8b94;
+  --color-oro: #e0a526;
+  --color-rojo: #c8372d;
+  --color-verde: #2f7d4f;
+  --color-azul: #1f4e8c;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  background: var(--color-papel);
+  color: var(--color-tinta);
+  /* Texto base de 16 px: evita que iOS haga zoom al enfocar un campo. */
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--color-papel);
+  color: var(--color-tinta);
+  font-family: var(--font-sans);
+  line-height: 1.4;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Íconos de línea finos en toda la app (lucide trae 2 por defecto). */
+.lucide {
+  stroke-width: 1.75;
+}
+
+/* Columna de celular: en pantallas grandes solo se centra. */
+.columna-app {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 28rem;
+  min-height: 100dvh;
+}

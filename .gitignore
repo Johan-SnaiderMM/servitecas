@@ -1,0 +1,41 @@
+# dependencias
+/node_modules
+/.pnp
+.pnp.*
+
+# pruebas
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# producción
+/build
+
+# varios
+.DS_Store
+*.pem
+
+# depuración
+npm-debug.log*
+
+# variables de entorno: nunca se suben; solo el ejemplo (sin valores reales)
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# base de datos local de desarrollo (PGlite) y subidas locales
+/.local/
+
+# credenciales sueltas: nunca se suben
+*password*.txt
+
+# ajustes locales de Claude Code
+.claude/settings.local.json
