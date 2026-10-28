@@ -26,6 +26,11 @@ const csp = [
 const nextConfig: NextConfig = {
   // PGlite (base local de desarrollo) usa WASM: no debe empaquetarse.
   serverExternalPackages: ["@electric-sql/pglite"],
+  // La demo pública (DEMO_PUBLICA=1) arma su base en memoria al arrancar: la función necesita leer las migraciones.
+  outputFileTracingIncludes: {
+    "/*": ["./supabase/migrations/**/*"],
+    "/**": ["./supabase/migrations/**/*"],
+  },
   // El indicador de desarrollo (círculo con la "N") tapa los botones de abajo.
   devIndicators: false,
   async headers() {

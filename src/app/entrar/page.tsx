@@ -4,7 +4,9 @@ import { Logo } from "@/components/layout/logo";
 import { Button, botonVariantes } from "@/components/ui/button";
 import { obtenerContexto } from "@/lib/datos/contexto";
 import { demoDisponible } from "@/lib/demo";
+import { MARCA } from "@/lib/marca";
 import { obtenerUsuario } from "@/lib/sesion";
+import { usarDemoPublica } from "@/lib/supabase/servidor";
 import { BotonDemo } from "./boton-demo";
 import { FormularioClave } from "./formulario-clave";
 
@@ -22,6 +24,33 @@ export default async function Entrar() {
   const usuario = await obtenerUsuario().catch(() => null);
   const contexto = usuario ? await obtenerContexto().catch(() => null) : null;
   const dentro = contexto?.perfil && contexto.taller ? { perfil: contexto.perfil, taller: contexto.taller } : null;
+
+  // Demo pública: no hay entrada por contraseña (no existe esa cuenta), solo los botones de la demo y el código del equipo.
+  if (usarDemoPublica() && !usuario) {
+    return (
+      <div className="columna-app flex flex-col px-4 pb-8 pt-[calc(1rem+env(safe-area-inset-top,0px))]">
+        <Logo />
+        <h1 className="mt-7 text-3xl font-semibold leading-tight tracking-tight">Demo de {MARCA.nombre}</h1>
+        <p className="mt-3 text-base leading-snug text-tinta-2">
+          Entra a un taller de demostración con datos inventados. No pide correo ni contraseña, y lo que hagas aquí se
+          borra solo.
+        </p>
+        <div className="mt-6 space-y-3">
+          <BotonDemo quien="gerente">Probar como gerente</BotonDemo>
+          <BotonDemo quien="jefe">Probar como jefe de patio</BotonDemo>
+        </div>
+        <div className="mt-8 border-t border-hueso pt-6">
+          <p className="text-center text-base text-tinta-2">¿Te invitaron como jefe de patio o de recepción? Usa tu código.</p>
+          <Link
+            href="/unirme"
+            className={`${botonVariantes({ variante: "secundario", tamano: "lg", bloque: true })} mt-3`}
+          >
+            Tengo un código de invitación
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="columna-app flex flex-col px-4 pb-8 pt-[calc(1rem+env(safe-area-inset-top,0px))]">

@@ -11,7 +11,8 @@ export type QuienDemo = "gerente" | "jefe";
 /**
  * Lo único que la app necesita de la base de datos. Hay dos implementaciones con la misma forma:
  *  - Supabase (producción y desarrollo normal).
- *  - PGlite local (DEMO_BD=local, solo fuera de producción) para desarrollar sin cuenta de Supabase.
+ *  - PGlite (DEMO_BD=local, solo fuera de producción) para desarrollar sin cuenta de Supabase; y la misma base solo en
+ *    memoria (DEMO_PUBLICA=1) para una demo pública con datos ficticios.
  * Toda la app habla con la base SOLO por funciones RPC (ver supabase/migrations).
  */
 export interface BaseDatos {
@@ -47,13 +48,24 @@ export interface BaseDatos {
   leerArchivoPublico(bucket: string, ruta: string): Promise<{ datos: Uint8Array; tipo: string } | null>;
 }
 
-/** El modo local solo existe fuera de producción: en producción `process.env.NODE_ENV` es constante y este código se elimina. */
+/**
+ * Demo pública (por ejemplo en Vercel): la base PGlite del modo local, pero solo en memoria, con datos ficticios y sin
+ * cuentas externas. Hay que pedirla con DEMO_PUBLICA=1; sin esa variable no existe.
+ */
+export function usarDemoPublica(): boolean {
+  return process.env.DEMO_PUBLICA === "1";
+}
+
+/**
+ * El modo local de desarrollo solo existe fuera de producción: en producción `process.env.NODE_ENV` es constante y esa
+ * parte se elimina. La única excepción es la demo pública, que se enciende a propósito con DEMO_PUBLICA=1.
+ */
 export function usarBdLocal(): boolean {
-  return process.env.NODE_ENV !== "production" && process.env.DEMO_BD === "local";
+  return usarDemoPublica() || (process.env.NODE_ENV !== "production" && process.env.DEMO_BD === "local");
 }
 
 export async function abrirBD(): Promise<BaseDatos> {
-  if (process.env.NODE_ENV !== "production" && usarBdLocal()) {
+  if (usarBdLocal()) {
     const { crearBdLocal } = await import("@/lib/local/bd-local");
     return crearBdLocal();
   }
