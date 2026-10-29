@@ -49,11 +49,20 @@ export interface BaseDatos {
 }
 
 /**
- * Demo pública (para UN solo proceso; en un servidor sin estado como Vercel cada instancia tendría su propia base): la base PGlite del modo local, pero solo en memoria, con datos ficticios y sin
- * cuentas externas. Hay que pedirla con DEMO_PUBLICA=1; sin esa variable no existe.
+ * Demo pública: la base del modo local abierta al público, con datos ficticios y sin cuentas de Supabase. Hay que pedirla
+ * con DEMO_PUBLICA=1; sin esa variable no existe. Sin DATABASE_URL vive en la memoria de UN solo proceso; con DATABASE_URL
+ * (ver usarDemoCompartida) vive en una base Postgres compartida.
  */
 export function usarDemoPublica(): boolean {
   return process.env.DEMO_PUBLICA === "1";
+}
+
+/**
+ * Demo pública sobre una base Postgres compartida (p. ej. Neon). Es la que sirve en un servidor sin estado como Vercel:
+ * ahí cada petición puede caer en una copia distinta de la app, y una base en memoria por copia no es coherente.
+ */
+export function usarDemoCompartida(): boolean {
+  return usarDemoPublica() && Boolean(process.env.DATABASE_URL?.trim());
 }
 
 /**

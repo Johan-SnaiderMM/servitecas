@@ -114,10 +114,10 @@ un proyecto anterior de taller. Se consultan, no se copian módulos de negocio.
   gerente, `jefe-demo@local.test` jefe). Se entra en `/entrar` con `dueno@local.test` y cualquier contraseña (solo
   desarrollo; en producción está apagado). La base se abre una vez por
   proceso: tras cambiar migraciones, reinicia `npm run dev`.
-- Demo pública (`DEMO_PUBLICA=1`, solo para UN proceso; NO sirve en Vercel ni en otro servidor sin estado, medido el 2026-10-29): la misma base PGlite pero solo en memoria (`src/lib/local/bd-local.ts`), con las
+- Demo pública (`DEMO_PUBLICA=1`; `src/lib/local/` → `bd-local.ts`, `motor.ts`, `archivos.ts`, `preparar.ts`): sin `DATABASE_URL` es PGlite en memoria para UN solo proceso (NO sirve en Vercel: cada instancia tendría su propia base, medido el 2026-10-29); con `DATABASE_URL` es una base Postgres compartida y vacía (p. ej. Neon) que sí sirve en Vercel, se vuelve a sembrar cada 3 h y se niega a tocar tablas ajenas (`bd-postgres.test.ts`). Con las
   fotos también en memoria (tope de 40 MB). Es el único caso en que el modo local corre en producción, así que se cierra lo que en
   desarrollo es cómodo: no hay entrada por contraseña (solo «Probar como gerente / jefe de patio» y el código del equipo), hay tope de
-  usuarios anónimos y el reinicio de la demo también vacía las fotos. Cada instancia del servidor tiene su propia copia: lo que se
+  usuarios anónimos y el reinicio de la demo también vacía las fotos. En memoria, cada instancia del servidor tiene su propia copia: lo que se
   haga se borra cuando se recicla. No lleva ninguna clave ni cuenta externa (`servidor.test.ts` fija cuándo se enciende).
 - El servidor de desarrollo usa el puerto **3001** (Barberías usa el 3000).
 

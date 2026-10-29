@@ -45,16 +45,21 @@ El modo local crea una base PGlite en `.local/` con las migraciones y un taller 
 
 Las variables están descritas en [`.env.example`](.env.example). `SUPABASE_URL` y `SUPABASE_ANON_KEY` son **solo del servidor** (sin `NEXT_PUBLIC_`): el navegador nunca habla con Supabase. Las migraciones están en `supabase/migrations/` y el esquema unido en `supabase/esquema-completo.sql` (`npm run esquema` lo regenera).
 
-## Demo pública (un solo proceso)
+## Demo pública
 
-Para que cualquiera la pruebe sin cuentas ni datos reales, la app puede correr con `DEMO_PUBLICA=1`: la misma base PGlite del modo local, pero **solo en memoria** y con datos ficticios. No necesita Supabase ni ninguna clave.
+Para que cualquiera la pruebe sin cuentas ni datos reales, la app puede correr con `DEMO_PUBLICA=1`: el mismo Postgres del modo local, abierto al público y con datos ficticios. No necesita Supabase. Tiene dos formas:
 
-- Cada instancia del servidor arma su propia copia al arrancar (unos segundos) y la pierde al reciclarse: lo que se haga se borra solo.
+- **Sin `DATABASE_URL`: en memoria (PGlite), para un único proceso.** `npm run build` y luego `DEMO_PUBLICA=1 npm start`, o un contenedor o una máquina. **No sirve en un servidor sin estado como Vercel**: cada instancia tendría su propia base y las peticiones de una misma persona caerían en copias distintas (medido: con 12 peticiones, 3 a la vez, 9 cayeron en una copia vacía).
+- **Con `DATABASE_URL`: una base Postgres compartida (p. ej. Neon, gratis).** Es la que sirve en Vercel: todas las copias de la app ven los mismos datos y la misma sesión (medido con dos servidores a la vez: 84 de 84 respuestas correctas). Al primer arranque arma el esquema y la demo, la recrea si cambian las migraciones y la vuelve a sembrar sola cada 3 horas. Usa una base **vacía**: si ya tiene otras tablas, se niega a tocarla.
+
+En los dos modos:
+
+- Lo que se haga en la demo se borra solo: al reciclarse el proceso (en memoria) o a las 3 horas (compartida).
 - No hay entrada por contraseña: se entra con **Probar como gerente** o **Probar como jefe de patio**.
-- Las fotos también viven en memoria, con un tope de 40 MB. **Más → Reiniciar la demo** las vacía.
+- Las fotos viven en la memoria o en la propia base (tabla `demo.archivos`), con un tope de 40 MB. **Más → Reiniciar la demo** las vacía.
 - No hay avisos push ni envío real de WhatsApp: la app solo arma el enlace `wa.me`.
 
-Funciona en **un único proceso**: `npm run build` y luego `DEMO_PUBLICA=1 npm start`, o un contenedor o una máquina. **No sirve en un servidor sin estado como Vercel**: cada instancia tendría su propia base y las peticiones de una misma persona caerían en copias distintas (medido: con 12 peticiones, 3 a la vez, 9 cayeron en una copia vacía). Para una demo en Vercel hace falta una base compartida.
+Para montarla en Vercel: crea una base Neon vacía, conéctala al proyecto (Vercel agrega `DATABASE_URL`) y define `DEMO_PUBLICA=1`.
 
 ## Decisiones de diseño
 
