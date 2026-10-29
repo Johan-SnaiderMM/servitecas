@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import Link from "@/components/ui/enlace";
 import { CircleCheck, Plus } from "lucide-react";
 import { TarjetaHallazgo } from "@/components/hallazgos/tarjeta-hallazgo";
 import { EncabezadoTarea } from "@/components/layout/encabezado-tarea";

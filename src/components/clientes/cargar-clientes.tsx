@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useTransition } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/enlace";
 import { CircleCheck, Download, FileUp, TriangleAlert } from "lucide-react";
 import { importarClientes } from "@/app/acciones/importar";
 import { BarraAccion } from "@/components/layout/barra-accion";

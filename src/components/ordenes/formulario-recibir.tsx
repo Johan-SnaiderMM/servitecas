@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useRef, useState, useTransition } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/enlace";
 import { History } from "lucide-react";
 import { buscarVehiculo, recibirVehiculo } from "@/app/acciones/ordenes";
 import { BarraAccion } from "@/components/layout/barra-accion";

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/enlace";
 import { SinPermiso } from "@/components/layout/sin-permiso";
 import { obtenerResumen } from "@/lib/datos/resumen";
 import { formatearPesos } from "@/lib/dinero";

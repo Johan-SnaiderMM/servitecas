@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/enlace";
 import { CarFront, Plus, UserPlus } from "lucide-react";
 import { AvisoDemo } from "@/components/demo/aviso-demo";
 import { BarraAccion } from "@/components/layout/barra-accion";

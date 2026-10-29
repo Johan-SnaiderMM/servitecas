@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/enlace";
 import { ArrowLeft } from "lucide-react";
 
 /** Encabezado de una pantalla de UNA tarea (sin barra de abajo): flecha para volver y el título. */

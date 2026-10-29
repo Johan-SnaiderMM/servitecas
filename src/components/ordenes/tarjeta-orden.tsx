@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/enlace";
 import { ChevronRight, MessageSquare } from "lucide-react";
 import { primerNombre, textoHace } from "@/lib/ordenes";
 import type { OrdenEnPatio } from "@/lib/tipos/ordenes";

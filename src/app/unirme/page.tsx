@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/enlace";
 import { salir } from "@/app/acciones/sesion";
 import { Logo } from "@/components/layout/logo";
 import { Button, botonVariantes } from "@/components/ui/button";
