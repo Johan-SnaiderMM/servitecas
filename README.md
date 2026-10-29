@@ -45,7 +45,7 @@ El modo local crea una base PGlite en `.local/` con las migraciones y un taller 
 
 Las variables están descritas en [`.env.example`](.env.example). `SUPABASE_URL` y `SUPABASE_ANON_KEY` son **solo del servidor** (sin `NEXT_PUBLIC_`): el navegador nunca habla con Supabase. Las migraciones están en `supabase/migrations/` y el esquema unido en `supabase/esquema-completo.sql` (`npm run esquema` lo regenera).
 
-## Demo pública en Vercel
+## Demo pública (un solo proceso)
 
 Para que cualquiera la pruebe sin cuentas ni datos reales, la app puede correr con `DEMO_PUBLICA=1`: la misma base PGlite del modo local, pero **solo en memoria** y con datos ficticios. No necesita Supabase ni ninguna clave.
 
@@ -54,7 +54,7 @@ Para que cualquiera la pruebe sin cuentas ni datos reales, la app puede correr c
 - Las fotos también viven en memoria, con un tope de 40 MB. **Más → Reiniciar la demo** las vacía.
 - No hay avisos push ni envío real de WhatsApp: la app solo arma el enlace `wa.me`.
 
-En Vercel basta con importar el repositorio y definir la variable `DEMO_PUBLICA=1`.
+Funciona en **un único proceso**: `npm run build` y luego `DEMO_PUBLICA=1 npm start`, o un contenedor o una máquina. **No sirve en un servidor sin estado como Vercel**: cada instancia tendría su propia base y las peticiones de una misma persona caerían en copias distintas (medido: con 12 peticiones, 3 a la vez, 9 cayeron en una copia vacía). Para una demo en Vercel hace falta una base compartida.
 
 ## Decisiones de diseño
 

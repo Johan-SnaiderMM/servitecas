@@ -49,7 +49,7 @@ export interface BaseDatos {
 }
 
 /**
- * Demo pública (por ejemplo en Vercel): la base PGlite del modo local, pero solo en memoria, con datos ficticios y sin
+ * Demo pública (para UN solo proceso; en un servidor sin estado como Vercel cada instancia tendría su propia base): la base PGlite del modo local, pero solo en memoria, con datos ficticios y sin
  * cuentas externas. Hay que pedirla con DEMO_PUBLICA=1; sin esa variable no existe.
  */
 export function usarDemoPublica(): boolean {
