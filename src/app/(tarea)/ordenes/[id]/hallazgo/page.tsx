@@ -27,11 +27,11 @@ export default async function RegistrarHallazgo({ params }: { params: Promise<{ 
   ]);
   if (!orden) notFound();
   // A una orden cerrada ya no se le agregan hallazgos.
-  if (!estaAbierta(orden.estado)) redirect(`/ordenes/${id}`);
+  if (!estaAbierta(orden.estado)) redirect(`/ordenes/${id}?ver=hallazgos`);
 
   return (
     <>
-      <EncabezadoTarea titulo={`Hallazgo · Orden #${orden.numero}`} volverA={`/ordenes/${id}`} />
+      <EncabezadoTarea titulo={`Hallazgo · Orden #${orden.numero}`} volverA={`/ordenes/${id}?ver=hallazgos`} />
       <FormularioHallazgo ordenId={id} clave={nuevaClave()} catalogo={catalogo} />
     </>
   );

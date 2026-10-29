@@ -27,15 +27,15 @@ Pregunta, no expliques:
 ## Minuto 2 a 3 · Recibir un vehículo en vivo
 
 1. **Recibir vehículo**: una placa y un celular. Con el permiso del visitante, usa su número para que le llegue a su WhatsApp. Si no, usa uno inventado.
-2. En la orden: **Tomar foto** de un golpe o un rayón. «Así nadie discute cómo llegó.»
-3. **Enviar el enlace por WhatsApp**: el mensaje sale escrito, el jefe solo pulsa enviar.
-4. **Ver enlace**: lo que ve el cliente, sin instalar nada y sin cuenta. Se actualiza solo.
+2. La orden abre en la pestaña **Fotos**: **Tomar foto** de un golpe o un rayón. «Así nadie discute cómo llegó.»
+3. **Enviar el enlace por WhatsApp** (arriba, en el aviso de «Vehículo recibido»): el mensaje sale escrito, el jefe solo pulsa enviar.
+4. **Más → Ver lo que ve el cliente**: sin instalar nada y sin cuenta. Se actualiza solo.
 
 ## Minuto 3 a 4 · Un hallazgo y el sí del cliente
 
-1. Abre **MNP 315**. Los amortiguadores delanteros botan aceite: $ 480.000, esperando.
-2. **Pedir autorización por WhatsApp** muestra el mensaje con la explicación y el valor.
-3. **Ver enlace**, y en el celular del cliente: **Autorizo → Sí, autorizo**.
+1. Abre **MNP 315**: la pestaña **Hallazgos** lleva un aviso «1». Los amortiguadores delanteros botan aceite: $ 480.000, esperando.
+2. **Pedir autorización por WhatsApp** muestra el mensaje con la explicación y el valor. Lo que se usa poco (respondió por llamada, anular) está en el **⋯** de la tarjeta.
+3. **Más → Ver lo que ve el cliente**, y en el celular del cliente: **Autorizo → Sí, autorizo**.
 4. De vuelta en la orden: «Marcela respondió desde el enlace». En el patio dice «1 autorizado».
 
 > Frase clave: «El cliente vio la foto y el precio, y dijo que sí por escrito. Al pagar no hay discusión.»
@@ -44,7 +44,7 @@ Si alguien pregunta por registrar un hallazgo, toca **Registrar un hallazgo**, e
 
 ## Minuto 4 a 5 · Mensajes y resumen
 
-1. Abre **WXY 641**. Rubén preguntó «¿Cuánto me sale en total…?». Responde y toca **Avisarle por WhatsApp**.
+1. Abre **WXY 641**: abre sola en **Mensajes**. Rubén preguntó «¿Cuánto me sale en total…?». Responde y toca **Avisarle por WhatsApp**.
 2. **Resumen → 30 días**:
    - Unos **$ 4,6 millones** autorizados en trabajos adicionales.
    - El 73 % de los que responden dicen que sí.

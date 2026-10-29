@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Camera, Images, Search, X } from "lucide-react";
+import { Camera, Images, X } from "lucide-react";
 import { crearHallazgo } from "@/app/acciones/hallazgos";
 import { subirFotoOrden } from "@/app/acciones/fotos";
 import { BarraAccion } from "@/components/layout/barra-accion";
@@ -10,27 +10,20 @@ import { Button } from "@/components/ui/button";
 import { AreaTexto, Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { formatearMiles, leerPesos } from "@/lib/dinero";
-import { CATEGORIAS, ETIQUETA_CATEGORIA, MAX_FOTOS_HALLAZGO, type Categoria } from "@/lib/hallazgos";
+import { ETIQUETA_CATEGORIA, MAX_FOTOS_HALLAZGO } from "@/lib/hallazgos";
 import { comprimirImagen } from "@/lib/imagen";
 import type { ItemCatalogo } from "@/lib/tipos/hallazgos";
-import { cn } from "@/lib/utils";
+import { BuscadorCatalogo } from "./buscador-catalogo";
 
 type FotoLista = { archivo: File; vista: string };
 
-/** Sin tildes ni mayúsculas, para buscar "pastillas" en "Pastillas de freno…". */
-function plano(texto: string): string {
-  return texto.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
-}
-
 /**
- * Registrar un hallazgo en pocos toques: se elige de la lista del taller (la explicación para el cliente ya viene
- * escrita), se ajusta si hace falta, precio opcional y hasta 3 fotos. Primero se guarda el hallazgo, luego se suben
+ * Registrar un hallazgo en pocos toques: se busca o se elige por categoría en la lista del taller (nunca sale entera;
+ * la explicación para el cliente ya viene escrita), se ajusta si hace falta, precio opcional y hasta 3 fotos. Primero se guarda el hallazgo, luego se suben
  * sus fotos y se vuelve a la orden para enviarlo por WhatsApp. Todos los campos son controlados.
  */
 export function FormularioHallazgo({ ordenId, clave, catalogo }: { ordenId: string; clave: string; catalogo: ItemCatalogo[] }) {
   const router = useRouter();
-  const [categoria, setCategoria] = useState<Categoria | "todas">("todas");
-  const [busqueda, setBusqueda] = useState("");
   const [elegido, setElegido] = useState<ItemCatalogo | "otro" | null>(null);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -44,13 +37,6 @@ export function FormularioHallazgo({ ordenId, clave, catalogo }: { ordenId: stri
 
   // Las vistas previas son URLs temporales: se liberan al salir.
   useEffect(() => () => vistas.current.forEach((v) => URL.revokeObjectURL(v)), []);
-
-  const visibles = useMemo(() => {
-    const q = plano(busqueda.trim());
-    return catalogo.filter(
-      (i) => (categoria === "todas" || i.categoria === categoria) && (!q || plano(`${i.nombre} ${i.descripcion}`).includes(q))
-    );
-  }, [catalogo, categoria, busqueda]);
 
   function elegir(item: ItemCatalogo | "otro") {
     setElegido(item);
@@ -130,54 +116,21 @@ export function FormularioHallazgo({ ordenId, clave, catalogo }: { ordenId: stri
     <div className="space-y-5 px-4 pb-6 pt-5">
       {!elegido ? (
         <section>
-          <Label htmlFor="buscar">Qué encontraste</Label>
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 text-tinta-2" aria-hidden />
-            <Input
-              id="buscar"
-              value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
-              placeholder="Buscar: pastillas, amortiguador…"
-              autoComplete="off"
-              className="pl-10"
-            />
-          </div>
-          <ul className="mt-3 flex gap-2 overflow-x-auto pb-1" aria-label="Categorías">
-            {(["todas", ...CATEGORIAS] as const).map((c) => (
-              <li key={c} className="shrink-0">
-                <button
-                  type="button"
-                  aria-pressed={categoria === c}
-                  onClick={() => setCategoria(c)}
-                  className={cn(
-                    "min-h-12 rounded-full border px-4 text-base font-medium whitespace-nowrap",
-                    categoria === c ? "border-tinta bg-tinta text-white" : "border-linea bg-white text-tinta active:bg-hueso"
-                  )}
-                >
-                  {c === "todas" ? "Todas" : ETIQUETA_CATEGORIA[c]}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <ul className="mt-3 space-y-2">
-            {visibles.map((i) => (
-              <li key={i.id}>
-                <button
-                  type="button"
-                  onClick={() => elegir(i)}
-                  className="flex min-h-14 w-full flex-col items-start rounded-xl border border-linea bg-white px-4 py-3 text-left active:bg-hueso"
-                >
-                  <span className="text-base font-medium leading-tight">{i.nombre}</span>
-                  <span className="mt-0.5 text-base text-tinta-2">{ETIQUETA_CATEGORIA[i.categoria]}</span>
-                </button>
-              </li>
-            ))}
-            {visibles.length === 0 && (
-              <li className="rounded-xl border border-dashed border-zinc-300 bg-hueso p-3 text-base text-tinta-2">
-                No está en la lista. Escríbelo abajo.
-              </li>
+          <BuscadorCatalogo
+            items={catalogo}
+            etiqueta="Qué encontraste"
+            vacio="No está en la lista. Escríbelo abajo."
+            fila={(i) => (
+              <button
+                type="button"
+                onClick={() => elegir(i)}
+                className="flex min-h-14 w-full flex-col items-start rounded-xl border border-linea bg-white px-4 py-3 text-left active:bg-hueso"
+              >
+                <span className="text-base font-medium leading-tight">{i.nombre}</span>
+                <span className="mt-0.5 text-base text-tinta-2">{ETIQUETA_CATEGORIA[i.categoria]}</span>
+              </button>
             )}
-          </ul>
+          />
           <Button variante="secundario" bloque className="mt-3" onClick={() => elegir("otro")}>
             Escribir otro hallazgo
           </Button>

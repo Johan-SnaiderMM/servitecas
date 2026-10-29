@@ -4,6 +4,7 @@
  */
 import { formatearPesos } from "./dinero";
 import { formatearPlaca } from "./placa";
+import { textoPlano } from "./texto";
 
 export const CATEGORIAS = ["llantas", "direccion", "frenos", "suspension", "motor", "electrico", "otros"] as const;
 export type Categoria = (typeof CATEGORIAS)[number];
@@ -20,6 +21,28 @@ export const ETIQUETA_CATEGORIA: Record<Categoria, string> = {
 
 export function esCategoria(valor: unknown): valor is Categoria {
   return typeof valor === "string" && (CATEGORIAS as readonly string[]).includes(valor);
+}
+
+/**
+ * Lo que se muestra de la lista del taller: con algo escrito, lo que lo contiene en el nombre, la explicación o la
+ * categoría (de todas las categorías); si no, solo la categoría elegida. Sin búsqueda ni categoría no se muestra nada:
+ * se eligen primero las categorías (así nunca sale la lista entera de una vez).
+ */
+export function filtrarCatalogo<T extends { nombre: string; descripcion: string; categoria: Categoria }>(
+  items: T[],
+  d: { categoria: Categoria | null; busqueda: string }
+): T[] {
+  const q = textoPlano(d.busqueda.trim());
+  if (q) return items.filter((i) => textoPlano(`${i.nombre} ${i.descripcion} ${ETIQUETA_CATEGORIA[i.categoria]}`).includes(q));
+  if (!d.categoria) return [];
+  return items.filter((i) => i.categoria === d.categoria);
+}
+
+/** Cuántos hay en cada categoría (solo las que tienen alguno), en el orden de CATEGORIAS. */
+export function contarPorCategoria(items: { categoria: Categoria }[]): { categoria: Categoria; n: number }[] {
+  return CATEGORIAS.map((categoria) => ({ categoria, n: items.filter((i) => i.categoria === categoria).length })).filter(
+    (c) => c.n > 0
+  );
 }
 
 export type EstadoHallazgo = "pendiente" | "autorizado" | "rechazado" | "anulado";

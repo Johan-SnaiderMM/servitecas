@@ -3,15 +3,15 @@ import { Plus } from "lucide-react";
 import { BarraAccion } from "@/components/layout/barra-accion";
 import { EnlaceFila } from "@/components/layout/enlace-fila";
 import { SinPermiso } from "@/components/layout/sin-permiso";
+import { ListaCatalogo } from "@/components/hallazgos/lista-catalogo";
 import { botonVariantes } from "@/components/ui/button";
-import { formatearPesos } from "@/lib/dinero";
 import { listarCatalogo } from "@/lib/datos/hallazgos";
-import { CATEGORIAS, ETIQUETA_CATEGORIA } from "@/lib/hallazgos";
+import { ETIQUETA_CATEGORIA } from "@/lib/hallazgos";
 import { revisarPermiso } from "@/lib/permisos";
 
 export const metadata = { title: "Lista de hallazgos" };
 
-/** La lista de hallazgos del taller por categoría: lo que el jefe de patio elige con un toque. */
+/** La lista de hallazgos del taller (buscador y categorías, nunca entera): lo que el jefe de patio elige con un toque. */
 export default async function Catalogo() {
   const { permitido } = await revisarPermiso("catalogo");
   if (!permitido) return <SinPermiso />;
@@ -26,32 +26,16 @@ export default async function Catalogo() {
         Lo que el jefe de patio elige con un toque. La explicación es la que lee el cliente.
       </p>
 
-      {CATEGORIAS.map((c) => {
-        const deLaCategoria = items.filter((i) => i.activo && i.categoria === c);
-        if (deLaCategoria.length === 0) return null;
-        return (
-          <section key={c} className="mt-6">
-            <h2 className="text-sm font-medium uppercase tracking-wider text-tinta-2">
-              {ETIQUETA_CATEGORIA[c]} · {deLaCategoria.length}
-            </h2>
-            <ul className="mt-2 space-y-2">
-              {deLaCategoria.map((i) => (
-                <li key={i.id}>
-                  <EnlaceFila
-                    href={`/catalogo/${i.id}`}
-                    titulo={i.nombre}
-                    detalle={i.precio_sugerido === null ? undefined : `Precio sugerido: ${formatearPesos(i.precio_sugerido)}`}
-                  />
-                </li>
-              ))}
-            </ul>
-          </section>
-        );
-      })}
+      <section className="mt-5">
+        <ListaCatalogo items={items.filter((i) => i.activo)} />
+      </section>
 
+      {/* Lo archivado se usa poco: plegado al final. */}
       {archivados.length > 0 && (
-        <section className="mt-8">
-          <h2 className="text-sm font-medium uppercase tracking-wider text-tinta-2">Archivados · {archivados.length}</h2>
+        <details className="mt-8">
+          <summary className="flex min-h-12 cursor-pointer items-center text-sm font-medium uppercase tracking-wider text-tinta-2">
+            Archivados · {archivados.length}
+          </summary>
           <ul className="mt-2 space-y-2">
             {archivados.map((i) => (
               <li key={i.id}>
@@ -59,7 +43,7 @@ export default async function Catalogo() {
               </li>
             ))}
           </ul>
-        </section>
+        </details>
       )}
 
       <BarraAccion conNavegacion>

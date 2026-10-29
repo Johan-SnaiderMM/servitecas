@@ -22,8 +22,8 @@ export function armarAviso(d: DatosAviso): AvisoPush {
   return {
     titulo: d.estado === "autorizado" ? `✓ Autorizado · ${formatearPlaca(d.placa)}` : `No autorizó · ${formatearPlaca(d.placa)}`,
     cuerpo: `${quien} ${d.estado === "autorizado" ? "autorizó" : "no autorizó"}: ${d.titulo} (orden #${d.numero})`,
-    // Al tocar el aviso se abre la orden en la app del personal.
-    url: `/ordenes/${d.orden_id}`,
+    // Al tocar el aviso se abre la orden en la app del personal, en la pestaña de hallazgos.
+    url: `/ordenes/${d.orden_id}?ver=hallazgos`,
     // Un aviso por orden: si llegan varios seguidos, el último reemplaza al anterior en vez de apilarse.
     tag: `orden-${d.orden_id}`,
   };
@@ -48,7 +48,7 @@ export function armarAvisoMensaje(d: DatosAvisoMensaje): AvisoPush {
   return {
     titulo: `Mensaje · ${formatearPlaca(d.placa)}`,
     cuerpo: `${quien}: ${texto.length > LARGO_EN_AVISO ? `${texto.slice(0, LARGO_EN_AVISO - 1).trimEnd()}…` : texto}`,
-    url: `/ordenes/${d.orden_id}#mensajes`,
+    url: `/ordenes/${d.orden_id}?ver=mensajes`,
     // Aparte de las autorizaciones: un mensaje no tapa el aviso de que autorizaron un trabajo.
     tag: `mensaje-${d.orden_id}`,
   };

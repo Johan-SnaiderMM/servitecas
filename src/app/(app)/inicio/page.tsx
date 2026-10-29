@@ -4,14 +4,13 @@ import { AvisoDemo } from "@/components/demo/aviso-demo";
 import { BarraAccion } from "@/components/layout/barra-accion";
 import { EnlaceFila } from "@/components/layout/enlace-fila";
 import { SinPermiso } from "@/components/layout/sin-permiso";
-import { TarjetaOrden } from "@/components/ordenes/tarjeta-orden";
+import { Patio } from "@/components/ordenes/patio";
 import { botonVariantes } from "@/components/ui/button";
 import { puedeVer } from "@/lib/areas";
 import { listarOrdenes } from "@/lib/datos/ordenes";
 import { primerNombre } from "@/lib/ordenes";
 import { revisarPermiso } from "@/lib/permisos";
 import { ahoraMs } from "@/lib/reloj";
-import type { OrdenEnPatio } from "@/lib/tipos/ordenes";
 
 export const metadata = { title: "Patio" };
 
@@ -56,10 +55,7 @@ export default async function Inicio() {
               </p>
             </section>
           ) : (
-            <>
-              <Grupo titulo="Asignados a ti" ordenes={mias} ahora={ahora} />
-              <Grupo titulo={mias.length > 0 ? "Los demás" : "En el patio"} ordenes={otras} ahora={ahora} />
-            </>
+            <Patio mias={mias} otras={otras} ahora={ahora} />
           )}
         </>
       ) : (
@@ -93,23 +89,5 @@ export default async function Inicio() {
         </BarraAccion>
       )}
     </main>
-  );
-}
-
-function Grupo({ titulo, ordenes, ahora }: { titulo: string; ordenes: OrdenEnPatio[]; ahora: number }) {
-  if (ordenes.length === 0) return null;
-  return (
-    <section className="mt-5">
-      <h2 className="text-sm font-medium uppercase tracking-wider text-tinta-2">
-        {titulo} · {ordenes.length}
-      </h2>
-      <ul className="mt-2 space-y-3">
-        {ordenes.map((o) => (
-          <li key={o.id}>
-            <TarjetaOrden orden={o} ahoraMs={ahora} />
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 }

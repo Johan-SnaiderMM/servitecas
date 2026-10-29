@@ -15,7 +15,7 @@ describe("armarAviso", () => {
     expect(armarAviso(base)).toEqual({
       titulo: "✓ Autorizado · ABC 123",
       cuerpo: "Juan autorizó: Pastillas de freno delanteras gastadas (orden #12)",
-      url: "/ordenes/o1",
+      url: "/ordenes/o1?ver=hallazgos",
       tag: "orden-o1",
     });
   });
@@ -34,7 +34,7 @@ describe("armarAvisoMensaje", () => {
     expect(armarAvisoMensaje(m)).toEqual({
       titulo: "Mensaje · ABC 123",
       cuerpo: "Juan: ¿Ya está listo?",
-      url: "/ordenes/o1#mensajes",
+      url: "/ordenes/o1?ver=mensajes",
       tag: "mensaje-o1",
     });
   });

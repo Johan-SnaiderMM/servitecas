@@ -64,7 +64,7 @@ describe("avisarRespuesta", () => {
     expect(enviar).toHaveBeenCalledTimes(2);
     const [destino, mensaje] = enviar.mock.calls[0];
     expect(destino).toEqual({ endpoint: "https://push.test/a", keys: { p256dh: "p1", auth: "a1" } });
-    expect(JSON.parse(mensaje)).toMatchObject({ titulo: "✓ Autorizado · ABC 123", url: "/ordenes/o1" });
+    expect(JSON.parse(mensaje)).toMatchObject({ titulo: "✓ Autorizado · ABC 123", url: "/ordenes/o1?ver=hallazgos" });
   });
 
   it("si la base no entrega el aviso (ya salió o venció), no manda nada", async () => {
@@ -117,7 +117,7 @@ describe("avisarMensaje", () => {
     await avisarMensaje("token-1", "m1");
     expect(consultarPublico).toHaveBeenCalledWith("publico_tomar_aviso_mensaje", { p_token: "token-1", p_mensaje: "m1" });
     expect(enviar).toHaveBeenCalledTimes(1);
-    expect(JSON.parse(enviar.mock.calls[0][1])).toMatchObject({ cuerpo: "Laura: ¿Ya está?", url: "/ordenes/o1#mensajes" });
+    expect(JSON.parse(enviar.mock.calls[0][1])).toMatchObject({ cuerpo: "Laura: ¿Ya está?", url: "/ordenes/o1?ver=mensajes" });
   });
 
   it("si la base ya no lo entrega (repetido o viejo), no manda nada", async () => {

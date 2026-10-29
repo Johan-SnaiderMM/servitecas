@@ -83,31 +83,8 @@ export function FotosOrden({ ordenId, fotos, abierta }: { ordenId: string; fotos
         onChange={(e) => void subir(e.target.files)}
       />
 
-      {fotos.length > 0 ? (
-        <ul className="grid grid-cols-3 gap-2">
-          {fotos.map((f) => (
-            <li key={f.id}>
-              <button
-                type="button"
-                onClick={() => setAbiertaId(f.id)}
-                className="block aspect-square w-full overflow-hidden rounded-lg border border-linea bg-hueso"
-                aria-label={`Ver foto de ingreso de las ${horaCorta(f.at)}`}
-              >
-                {/* Servida por la app con permiso: next/image no aporta aquí. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/api/foto/orden/${f.id}`} alt="" loading="lazy" className="size-full object-cover" />
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="rounded-xl border border-dashed border-zinc-300 bg-hueso p-3 text-base text-tinta-2">
-          {abierta ? "Toma fotos de cómo llegó: golpes, rayones, llantas. Así nadie discute después." : "Sin fotos de ingreso."}
-        </p>
-      )}
-
       {abierta && (
-        <div className="mt-3 flex gap-2">
+        <div className="mb-3 flex gap-2">
           <Button
             variante="secundario"
             className="flex-1"
@@ -129,13 +106,36 @@ export function FotosOrden({ ordenId, fotos, abierta }: { ordenId: string; fotos
         </div>
       )}
       {progreso && (
-        <p className="mt-2 text-base text-tinta-2" role="status">
+        <p className="mb-3 text-base text-tinta-2" role="status">
           Subiendo {progreso.total === 1 ? "la foto" : `${Math.min(progreso.hechas + 1, progreso.total)} de ${progreso.total}`}…
         </p>
       )}
       {error && (
-        <p role="alert" className="mt-2 text-base font-semibold text-rojo">
+        <p role="alert" className="mb-3 text-base font-semibold text-rojo">
           {error}
+        </p>
+      )}
+
+      {fotos.length > 0 ? (
+        <ul className="grid grid-cols-3 gap-2">
+          {fotos.map((f) => (
+            <li key={f.id}>
+              <button
+                type="button"
+                onClick={() => setAbiertaId(f.id)}
+                className="block aspect-square w-full overflow-hidden rounded-lg border border-linea bg-hueso"
+                aria-label={`Ver foto de ingreso de las ${horaCorta(f.at)}`}
+              >
+                {/* Servida por la app con permiso: next/image no aporta aquí. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/api/foto/orden/${f.id}`} alt="" loading="lazy" className="size-full object-cover" />
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="rounded-xl border border-dashed border-zinc-300 bg-hueso p-3 text-base text-tinta-2">
+          {abierta ? "Toma fotos de cómo llegó: golpes, rayones, llantas. Así nadie discute después." : "Sin fotos de ingreso."}
         </p>
       )}
 

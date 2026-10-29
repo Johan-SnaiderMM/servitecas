@@ -1,5 +1,53 @@
 import { describe, expect, it } from "vitest";
-import { CATEGORIAS, ETIQUETA_CATEGORIA, ETIQUETA_HALLAZGO, esCategoria, mensajeHallazgo, textoPrecio } from "./hallazgos";
+import {
+  CATEGORIAS,
+  contarPorCategoria,
+  ETIQUETA_CATEGORIA,
+  ETIQUETA_HALLAZGO,
+  esCategoria,
+  filtrarCatalogo,
+  mensajeHallazgo,
+  textoPrecio,
+} from "./hallazgos";
+import { textoPlano } from "./texto";
+
+describe("filtrarCatalogo", () => {
+  const items = [
+    { nombre: "Pastillas de freno gastadas", descripcion: "Frenan menos.", categoria: "frenos" as const },
+    { nombre: "Disco rayado", descripcion: "Vibra al frenar.", categoria: "frenos" as const },
+    { nombre: "Batería débil", descripcion: "Puede no prender.", categoria: "electrico" as const },
+    { nombre: "Llanta lisa", descripcion: "Sin labrado.", categoria: "llantas" as const },
+  ];
+
+  it("sin búsqueda ni categoría no muestra nada: nunca la lista entera", () => {
+    expect(filtrarCatalogo(items, { categoria: null, busqueda: "  " })).toEqual([]);
+  });
+
+  it("con categoría muestra solo esa", () => {
+    expect(filtrarCatalogo(items, { categoria: "frenos", busqueda: "" }).map((i) => i.nombre)).toEqual([
+      "Pastillas de freno gastadas",
+      "Disco rayado",
+    ]);
+  });
+
+  it("la búsqueda ignora tildes y mayúsculas, busca en todas y también por el nombre de la categoría", () => {
+    expect(filtrarCatalogo(items, { categoria: "llantas", busqueda: "BATERIA" }).map((i) => i.nombre)).toEqual(["Batería débil"]);
+    expect(filtrarCatalogo(items, { categoria: null, busqueda: "eléctrico" }).map((i) => i.nombre)).toEqual(["Batería débil"]);
+    expect(filtrarCatalogo(items, { categoria: null, busqueda: "frenar" }).map((i) => i.nombre)).toEqual(["Disco rayado"]);
+  });
+
+  it("textoPlano quita tildes y mayúsculas", () => {
+    expect(textoPlano("Alineación Y Dirección")).toBe("alineacion y direccion");
+  });
+
+  it("contarPorCategoria cuenta en el orden de CATEGORIAS y omite las vacías", () => {
+    expect(contarPorCategoria(items)).toEqual([
+      { categoria: "llantas", n: 1 },
+      { categoria: "frenos", n: 2 },
+      { categoria: "electrico", n: 1 },
+    ]);
+  });
+});
 
 describe("categorías", () => {
   it("toda categoría tiene su etiqueta y no hay repetidas", () => {

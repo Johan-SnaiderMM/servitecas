@@ -56,9 +56,13 @@ un proyecto anterior de taller. Se consultan, no se copian módulos de negocio.
   o, si nadie, todo el patio.
 - Mensajes (`0009`): el cliente escribe con `publico_enviar_mensaje(token, clave, texto)` solo con la orden abierta; 10 por
   hora por orden (`fn_limite_mensajes_hora`, espejo en `src/lib/mensajes.ts`). Devuelve `{ok:false, motivo}`, nunca lanza.
-  El taller responde con `enviar_mensaje_orden` (recepción o patio) y le avisa por `wa.me`; responder o abrir la orden
-  (`marcar_mensajes_leidos`, sin revalidar para no borrar el «Nuevo» en pantalla) los marca vistos. Al cliente solo le
+  El taller responde con `enviar_mensaje_orden` (recepción o patio) y le avisa por `wa.me`; responder o abrir la pestaña
+  Mensajes (`marcar_mensajes_leidos`, sin revalidar para no borrar el «Nuevo» en pantalla) los marca vistos. Al cliente solo le
   sale el primer nombre de quien respondió. Aviso push con `publico_tomar_aviso_mensaje` (igual que las respuestas).
+- Pantalla de la orden: el vehículo arriba y, debajo, pestañas Orden · Hallazgos · Mensajes · Fotos (`pestanas-orden.tsx`;
+  con cuál abre y el aviso pequeño de lo pendiente los decide `src/lib/pestanas-orden.ts`). `?ver=<pestaña>` elige la pestaña
+  (los avisos push la usan). A la vista va solo lo principal de cada bloque; lo que se usa poco va en hojas: «Más» en la barra
+  de abajo (estado, quién lo atiende, ver o copiar el enlace, cancelar) y «⋯» en cada hallazgo (respondió por llamada, anular).
 - Resumen (`0010`): `obtener_resumen(p_desde, p_hasta)` (área `resumen`) envuelve `fn_resumen(taller, desde, hasta)`; los
   días son de Bogotá e inclusivos. Los hallazgos cuentan por su `created_at` (sin anulados); los tiempos por estado salen de
   `orden_eventos` con `estado` (cada uno abre un tramo que cierra el siguiente), solo de vehículos recibidos en el periodo y
@@ -98,6 +102,11 @@ un proyecto anterior de taller. Se consultan, no se copian módulos de negocio.
   `(tarea)` (en `/o/<token>` se perdería el 404), `error.tsx` y `global-error.tsx` (`pantallas-de-estado.test.ts`).
 - Diseño: objetivos táctiles ≥ 48 px, texto ≥ 16 px, acciones principales abajo, sin `hover`, sin scroll horizontal;
   lo apagado se ve con borde punteado y fondo gris, nunca con `opacity`. Verificar a 360×640 y 390×844.
+- Listas largas: nunca enteras de una vez. La lista de hallazgos (registrar y «Más → Lista de hallazgos») va con
+  `BuscadorCatalogo`: buscador sin tildes y, sin nada escrito, las categorías con su cuenta (`filtrarCatalogo` en
+  `src/lib/hallazgos.ts`). El patio muestra buscador desde `MIN_PARA_BUSCAR_EN_PATIO` vehículos (`filtrarPatio`), la
+  historia de la orden deja a la vista los últimos 5 cambios y lo archivado va plegado (`<details>`). Una lista nueva
+  que pueda crecer sigue el mismo patrón.
   Estilo "ultra clean": bordes de 1 px `border-linea` (nunca `border-2` ni negro), títulos `font-semibold`, etiquetas
   `font-medium` en mayúsculas (14 px), texto secundario `text-tinta-2`, íconos de línea fina. Los colores salen de los
   tokens de `globals.css`; no usar hex sueltos.

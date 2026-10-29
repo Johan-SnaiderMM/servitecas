@@ -5,6 +5,7 @@ import {
   ETIQUETA_ESTADO,
   esEstado,
   estaAbierta,
+  filtrarPatio,
   primerNombre,
   siguienteEstado,
   TEXTO_CLIENTE,
@@ -72,6 +73,30 @@ describe("textoHace", () => {
   it("menos de un minuto es ahora mismo", () => {
     expect(textoHace(0.5)).toBe("Ahora mismo");
     expect(textoHace(12)).toBe("Hace 12 min");
+  });
+});
+
+describe("filtrarPatio", () => {
+  const patio = [
+    { placa: "ABC123", servicio: "Cambio de aceite", cliente: "Rubén Díaz", asignado: { nombre: "Andrés Mejía" } },
+    { placa: "XYZ98D", servicio: "Alineación y balanceo", cliente: null, asignado: null },
+  ];
+  const placas = (q: string) => filtrarPatio(patio, q).map((o) => o.placa);
+
+  it("vacío muestra todos", () => {
+    expect(placas("  ")).toEqual(["ABC123", "XYZ98D"]);
+  });
+
+  it("la placa se encuentra con espacio, guion o minúsculas", () => {
+    expect(placas("abc 12")).toEqual(["ABC123"]);
+    expect(placas("XYZ-98")).toEqual(["XYZ98D"]);
+  });
+
+  it("también por servicio, cliente o quién lo atiende, sin tildes", () => {
+    expect(placas("alineacion")).toEqual(["XYZ98D"]);
+    expect(placas("ruben")).toEqual(["ABC123"]);
+    expect(placas("andres")).toEqual(["ABC123"]);
+    expect(placas("frenos")).toEqual([]);
   });
 });
 

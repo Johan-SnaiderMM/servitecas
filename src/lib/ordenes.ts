@@ -3,6 +3,7 @@
  * Recibido → Diagnóstico → En proceso → Listo → Entregado; Cancelada (con motivo) desde cualquiera abierta.
  * Módulo puro: lo usan componentes `"use client"`.
  */
+import { textoPlano } from "./texto";
 
 export const ESTADOS = ["recibido", "diagnostico", "en_proceso", "listo", "entregado", "cancelada"] as const;
 export type Estado = (typeof ESTADOS)[number];
@@ -75,6 +76,26 @@ export function textoTiempo(minutos: number): string {
 /** "Ahora mismo", "Hace 12 min", "Hace 2 h". */
 export function textoHace(minutos: number): string {
   return minutos < 1 ? "Ahora mismo" : `Hace ${textoTiempo(minutos)}`;
+}
+
+/** Desde cuántos vehículos en el patio aparece el buscador (con menos, se ven todos de un vistazo). */
+export const MIN_PARA_BUSCAR_EN_PATIO = 6;
+
+/**
+ * Los vehículos del patio que coinciden con lo escrito: la placa (sin importar espacios ni guiones), el servicio, el
+ * cliente o quién lo atiende, sin tildes ni mayúsculas. Vacío = todos.
+ */
+export function filtrarPatio<
+  T extends { placa: string; servicio: string; cliente: string | null; asignado: { nombre: string } | null },
+>(ordenes: T[], busqueda: string): T[] {
+  const q = textoPlano(busqueda.trim());
+  if (!q) return ordenes;
+  const qPlaca = q.replace(/[\s-]/g, "");
+  return ordenes.filter(
+    (o) =>
+      (qPlaca !== "" && textoPlano(o.placa).replace(/[\s-]/g, "").includes(qPlaca)) ||
+      textoPlano(`${o.servicio} ${o.cliente ?? ""} ${o.asignado?.nombre ?? ""}`).includes(q)
+  );
 }
 
 /** Primer nombre para saludar o para "lo atiende Mateo". */
