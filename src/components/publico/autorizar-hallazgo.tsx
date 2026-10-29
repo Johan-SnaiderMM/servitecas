@@ -31,7 +31,7 @@ export function AutorizarHallazgo({ token, hallazgo }: { token: string; hallazgo
   }
 
   return (
-    <article className="rounded-xl border border-oro bg-white p-4">
+    <article className="rounded-xl border border-oro bg-superficie p-4">
       <h3 className="text-lg font-semibold leading-snug">{h.titulo}</h3>
       <p className="mt-1 text-base text-tinta-2">{h.descripcion}</p>
       <p className="mt-2 text-xl font-semibold">{textoPrecio(h.precio)}</p>

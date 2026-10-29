@@ -35,7 +35,7 @@ export function SelectorRoles({
               <label
                 className={cn(
                   "flex min-h-14 items-start gap-3 rounded-xl border px-4 py-3",
-                  permitido ? "border-linea bg-white" : "border-dashed border-zinc-300 bg-hueso"
+                  permitido ? "border-linea bg-superficie" : "border-dashed border-zinc-300 bg-hueso"
                 )}
               >
                 <input

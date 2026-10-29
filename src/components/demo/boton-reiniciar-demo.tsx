@@ -27,7 +27,7 @@ export function BotonReiniciarDemo({ conPin }: { conPin: boolean }) {
       <button
         type="button"
         onClick={() => setAbierta(true)}
-        className="flex min-h-16 w-full items-center gap-3 rounded-xl border border-linea bg-white px-4 py-3 text-left active:bg-hueso"
+        className="flex min-h-16 w-full items-center gap-3 rounded-xl border border-linea bg-superficie px-4 py-3 text-left active:bg-hueso"
       >
         <RotateCcw className="size-6 shrink-0 text-tinta-2" aria-hidden />
         <span className="min-w-0 flex-1">

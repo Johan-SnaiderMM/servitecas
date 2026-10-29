@@ -52,7 +52,7 @@ export default async function PaginaResumen({ searchParams }: { searchParams: Pr
             aria-current={p === periodo ? "page" : undefined}
             className={cn(
               "flex min-h-12 items-center justify-center rounded-xl border px-1 text-center text-base font-medium leading-tight",
-              p === periodo ? "border-tinta bg-tinta text-white" : "border-linea bg-white active:bg-hueso"
+              p === periodo ? "border-tinta bg-tinta text-papel" : "border-linea bg-superficie active:bg-hueso"
             )}
           >
             {ETIQUETA_PERIODO[p]}
@@ -67,7 +67,7 @@ export default async function PaginaResumen({ searchParams }: { searchParams: Pr
         </p>
       ) : (
         <>
-          <section className="mt-5 rounded-xl border border-linea bg-white p-4">
+          <section className="mt-5 rounded-xl border border-linea bg-superficie p-4">
             <p className="text-sm font-medium uppercase tracking-wider text-tinta-2">Trabajos adicionales autorizados</p>
             <p className="mt-1 text-4xl font-semibold tracking-tight">{formatearPesos(h.autorizados.valor)}</p>
             <p className="mt-1 text-base text-tinta-2">
@@ -105,7 +105,7 @@ export default async function PaginaResumen({ searchParams }: { searchParams: Pr
           {r.top.length > 0 && (
             <section className="mt-6">
               <h2 className="text-sm font-medium uppercase tracking-wider text-tinta-2">Lo que más se autoriza</h2>
-              <ol className="mt-2 divide-y divide-hueso rounded-xl border border-linea bg-white">
+              <ol className="mt-2 divide-y divide-hueso rounded-xl border border-linea bg-superficie">
                 {r.top.map((t) => (
                   <li key={t.titulo} className="px-4 py-3">
                     <p className="text-base font-medium leading-tight">{t.titulo}</p>
@@ -121,7 +121,7 @@ export default async function PaginaResumen({ searchParams }: { searchParams: Pr
           <section className="mt-6">
             <h2 className="text-sm font-medium uppercase tracking-wider text-tinta-2">Vehículos</h2>
             {/* Una sola tarjeta de tres columnas: en 360 px tres cajas sueltas no alcanzan para "CANCELADOS". */}
-            <dl className="mt-2 grid grid-cols-3 divide-x divide-hueso rounded-xl border border-linea bg-white">
+            <dl className="mt-2 grid grid-cols-3 divide-x divide-hueso rounded-xl border border-linea bg-superficie">
               {(
                 [
                   ["Recibidos", r.ordenes.recibidas],
@@ -152,7 +152,7 @@ export default async function PaginaResumen({ searchParams }: { searchParams: Pr
 
           <section className="mt-6">
             <h2 className="text-sm font-medium uppercase tracking-wider text-tinta-2">Tiempo promedio en cada estado</h2>
-            <ul className="mt-2 space-y-3 rounded-xl border border-linea bg-white p-4">
+            <ul className="mt-2 space-y-3 rounded-xl border border-linea bg-superficie p-4">
               {r.tiempos.map((t) => (
                 <li key={t.estado}>
                   <div className="flex items-baseline justify-between gap-3">
@@ -179,7 +179,7 @@ export default async function PaginaResumen({ searchParams }: { searchParams: Pr
 
 function Cifra({ etiqueta, n, valor }: { etiqueta: string; n: number; valor: number }) {
   return (
-    <div className="rounded-xl border border-linea bg-white px-3 py-2.5">
+    <div className="rounded-xl border border-linea bg-superficie px-3 py-2.5">
       <dt className="text-sm font-medium uppercase tracking-wider text-tinta-2">{etiqueta}</dt>
       <dd className="mt-0.5 text-2xl font-semibold">{n}</dd>
       <dd className="text-base text-tinta-2">{formatearPesos(valor)}</dd>

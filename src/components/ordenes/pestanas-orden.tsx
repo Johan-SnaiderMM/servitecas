@@ -105,16 +105,16 @@ export function PestanasOrden({
                 className={cn(
                   "flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-lg border text-sm font-medium leading-tight",
                   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tinta",
-                  elegida ? "border-linea bg-white text-tinta" : "border-transparent text-tinta-2 active:bg-papel"
+                  elegida ? "border-linea bg-superficie text-tinta" : "border-transparent text-tinta-2 active:bg-papel"
                 )}
               >
                 <span className="relative">
                   <Icono className="size-6" strokeWidth={elegida ? 2 : 1.5} aria-hidden />
                   {aviso === "punto" ? (
-                    <span className="absolute -right-1 -top-0.5 size-3 rounded-full border border-white bg-oro" aria-hidden />
+                    <span className="absolute -right-1 -top-0.5 size-3 rounded-full border border-superficie bg-oro" aria-hidden />
                   ) : aviso !== null ? (
                     <span
-                      className="absolute -right-3 -top-1.5 min-w-5 rounded-full border border-white bg-oro px-1 text-center text-sm font-semibold leading-[1.125rem] text-tinta"
+                      className="absolute -right-3 -top-1.5 min-w-5 rounded-full border border-superficie bg-oro px-1 text-center text-sm font-semibold leading-[1.125rem] text-tinta"
                       aria-hidden
                     >
                       {aviso}

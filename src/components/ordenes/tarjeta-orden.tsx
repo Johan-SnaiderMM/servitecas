@@ -11,7 +11,7 @@ export function TarjetaOrden({ orden, ahoraMs }: { orden: OrdenEnPatio; ahoraMs:
   return (
     <Link
       href={`/ordenes/${orden.id}`}
-      className="flex min-h-16 items-center gap-3 rounded-xl border border-linea bg-white px-4 py-3 active:bg-hueso"
+      className="flex min-h-16 items-center gap-3 rounded-xl border border-linea bg-superficie px-4 py-3 active:bg-hueso"
     >
       <span className="min-w-0 flex-1">
         <span className="flex flex-wrap items-center gap-2">

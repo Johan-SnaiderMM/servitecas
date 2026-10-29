@@ -67,7 +67,7 @@ export default async function MiVehiculo({ params }: { params: Promise<{ token: 
         </section>
       )}
 
-      <section className="mt-4 rounded-xl border border-linea bg-white p-4">
+      <section className="mt-4 rounded-xl border border-linea bg-superficie p-4">
         <div className="flex flex-wrap items-center gap-3">
           <Placa placa={orden.placa} grande />
           <span className="text-base text-tinta-2">Orden #{orden.numero}</span>
@@ -95,8 +95,8 @@ export default async function MiVehiculo({ params }: { params: Promise<{ token: 
                   <span
                     className={cn(
                       "flex size-8 shrink-0 items-center justify-center rounded-full border",
-                      hecho && "border-verde bg-verde text-white",
-                      ahoraEs && "border-tinta bg-tinta text-white",
+                      hecho && "border-verde bg-verde-solido text-white",
+                      ahoraEs && "border-tinta bg-tinta text-papel",
                       !hecho && !ahoraEs && "border-dashed border-zinc-300 bg-hueso text-tinta-2"
                     )}
                   >
@@ -120,7 +120,7 @@ export default async function MiVehiculo({ params }: { params: Promise<{ token: 
       {respondidos.length > 0 && (
         <section className="mb-5">
           <h2 className="text-sm font-medium uppercase tracking-wider text-tinta-2">Trabajos adicionales</h2>
-          <ul className="mt-2 divide-y divide-hueso rounded-xl border border-linea bg-white">
+          <ul className="mt-2 divide-y divide-hueso rounded-xl border border-linea bg-superficie">
             {respondidos.map((h) => (
               <li key={h.id} className="flex items-start gap-3 px-4 py-3">
                 {h.estado === "autorizado" ? (

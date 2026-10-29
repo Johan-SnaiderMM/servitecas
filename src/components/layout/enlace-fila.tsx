@@ -22,7 +22,7 @@ export function EnlaceFila({
       href={href}
       className={cn(
         "flex min-h-16 items-center gap-3 rounded-xl border px-4 py-3 active:bg-hueso",
-        tenue ? "border-dashed border-zinc-300 bg-hueso" : "border-linea bg-white"
+        tenue ? "border-dashed border-zinc-300 bg-hueso" : "border-linea bg-superficie"
       )}
     >
       {Icono && <Icono className="size-6 shrink-0 text-tinta-2" aria-hidden />}

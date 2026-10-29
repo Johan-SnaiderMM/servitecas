@@ -20,7 +20,7 @@ export function HiloMensajes({ burbujas }: { burbujas: Burbuja[] }) {
           <div
             className={cn(
               "max-w-[85%] rounded-2xl border px-3 py-2",
-              b.propio ? "border-linea bg-hueso" : "border-linea bg-white",
+              b.propio ? "border-linea bg-hueso" : "border-linea bg-superficie",
               b.nuevo && "border-oro"
             )}
           >

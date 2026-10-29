@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
  * en `tinta-2` y lo apagado con borde punteado. 16 px de letra: más pequeño, iOS hace zoom al enfocar.
  */
 export const CAMPO = cn(
-  "w-full rounded-xl border border-borde-campo bg-white text-base text-tinta placeholder:text-tinta-2",
+  "w-full rounded-xl border border-borde-campo bg-superficie text-base text-tinta placeholder:text-tinta-2",
   "focus-visible:border-tinta focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-tinta",
   "disabled:border-dashed disabled:border-zinc-300 disabled:bg-hueso"
 );

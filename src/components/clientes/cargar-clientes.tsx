@@ -105,7 +105,7 @@ export function CargarClientes() {
   if (listo) {
     return (
       <main className="space-y-4 px-4 pb-8 pt-5">
-        <section className="rounded-xl border border-linea bg-white p-4">
+        <section className="rounded-xl border border-linea bg-superficie p-4">
           <CircleCheck className="size-8 text-verde" aria-hidden />
           <h2 className="mt-2 text-xl font-semibold">Clientes cargados</h2>
           <p className="mt-1 text-base">
@@ -134,7 +134,7 @@ export function CargarClientes() {
     <>
       <main className="space-y-5 px-4 pb-40 pt-5">
         {!previa && (
-          <section className="space-y-3 rounded-xl border border-linea bg-white p-4 text-base">
+          <section className="space-y-3 rounded-xl border border-linea bg-superficie p-4 text-base">
             <p>
               Sube un archivo <strong className="font-semibold">CSV</strong> con tres columnas:{" "}
               <strong className="font-semibold">placa, nombre y celular</strong>. Así, cuando un cliente llegue, al escribir
@@ -160,7 +160,7 @@ export function CargarClientes() {
         />
 
         {error && (
-          <p role="alert" className="flex items-start gap-2 rounded-xl border border-rojo bg-white p-3 text-base font-semibold text-rojo">
+          <p role="alert" className="flex items-start gap-2 rounded-xl border border-rojo bg-superficie p-3 text-base font-semibold text-rojo">
             <TriangleAlert className="mt-0.5 size-5 shrink-0" aria-hidden />
             {error}
           </p>
@@ -170,7 +170,7 @@ export function CargarClientes() {
 
         {previa && r && (
           <>
-            <section className="rounded-xl border border-linea bg-white p-4">
+            <section className="rounded-xl border border-linea bg-superficie p-4">
               <p className="text-sm font-medium uppercase tracking-wider text-tinta-2">{previa.archivo}</p>
               <p className="mt-1 text-2xl font-semibold">
                 {plural(r.clientes_nuevos, "cliente nuevo", "clientes nuevos")}
@@ -195,7 +195,7 @@ export function CargarClientes() {
                 <h2 className="text-sm font-medium uppercase tracking-wider text-tinta-2">
                   No se van a cargar · {previa.problemas.length.toLocaleString("es-CO")}
                 </h2>
-                <ul className="mt-2 divide-y divide-hueso rounded-xl border border-linea bg-white">
+                <ul className="mt-2 divide-y divide-hueso rounded-xl border border-linea bg-superficie">
                   {previa.problemas.slice(0, MOSTRAR).map((p, i) => (
                     <li key={i} className="px-4 py-2.5 text-base">
                       <span className="font-medium">Fila {p.fila}:</span> {p.motivo}

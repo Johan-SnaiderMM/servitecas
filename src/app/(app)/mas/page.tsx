@@ -6,6 +6,7 @@ import { BotonReiniciarDemo } from "@/components/demo/boton-reiniciar-demo";
 import { EnlaceFila } from "@/components/layout/enlace-fila";
 import { SinPermiso } from "@/components/layout/sin-permiso";
 import { Button } from "@/components/ui/button";
+import { SelectorTema } from "@/components/ui/selector-tema";
 import { puedeVer, type Pantalla } from "@/lib/areas";
 import { revisarPermiso } from "@/lib/permisos";
 
@@ -49,7 +50,7 @@ export default async function Mas() {
     <main className="px-4 pb-6 pt-[calc(1.25rem+env(safe-area-inset-top,0px))]">
       <h1 className="text-3xl font-semibold leading-tight tracking-tight">Más</h1>
 
-      <dl className="mt-5 divide-y divide-hueso rounded-xl border border-linea bg-white">
+      <dl className="mt-5 divide-y divide-hueso rounded-xl border border-linea bg-superficie">
         <div className="px-4 py-3">
           <dt className="text-sm font-medium uppercase tracking-wider text-tinta-2">Taller</dt>
           <dd className="mt-0.5 text-lg font-semibold">{taller.nombre}</dd>
@@ -80,6 +81,8 @@ export default async function Mas() {
           <AvisosPush llavePublica={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY?.trim() || null} />
         </div>
       )}
+
+      <SelectorTema />
 
       {/* La demo: se avisa que es de ejemplo y el gerente la puede reiniciar (borra lo de la visita y recarga los datos). */}
       {taller.es_demo && (

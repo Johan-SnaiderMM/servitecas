@@ -34,7 +34,7 @@ export default async function Equipo() {
             return (
               <li key={p.user_id}>
                 {p.rol === "dueno" || p.yo ? (
-                  <div className="flex min-h-16 items-center gap-3 rounded-xl border border-linea bg-white px-4 py-3">
+                  <div className="flex min-h-16 items-center gap-3 rounded-xl border border-linea bg-superficie px-4 py-3">
                     <UserRound className="size-6 shrink-0 text-tinta-2" aria-hidden />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-base font-medium leading-tight">

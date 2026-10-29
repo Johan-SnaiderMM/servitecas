@@ -23,7 +23,7 @@ export function BarraNavegacion({ areas }: { areas: Quien["areas"] }) {
   return (
     <nav
       aria-label="Principal"
-      className="fixed inset-x-0 bottom-0 z-20 border-t border-linea bg-white/80 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur"
+      className="fixed inset-x-0 bottom-0 z-20 border-t border-linea bg-superficie/80 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur"
     >
       <ul className="mx-auto flex max-w-md">
         {visibles.map(({ href, etiqueta, Icono }) => {

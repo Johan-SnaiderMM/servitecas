@@ -102,6 +102,11 @@ un proyecto anterior de taller. Se consultan, no se copian módulos de negocio.
   `(tarea)` (en `/o/<token>` se perdería el 404), `error.tsx` y `global-error.tsx` (`pantallas-de-estado.test.ts`).
 - Diseño: objetivos táctiles ≥ 48 px, texto ≥ 16 px, acciones principales abajo, sin `hover`, sin scroll horizontal;
   lo apagado se ve con borde punteado y fondo gris, nunca con `opacity`. Verificar a 360×640 y 390×844.
+- Modo oscuro: sigue al celular (`prefers-color-scheme`) y se puede fijar en «Más → Apariencia» (`src/lib/tema.ts` y
+  `SelectorTema`; `data-tema` en `<html>`). Los colores salen SIEMPRE de los tokens de `globals.css`: nada de `bg-white`,
+  `text-black` ni hex sueltos. Tarjetas, campos y hojas son `bg-superficie`; el relleno sólido con letra blanca es
+  `bg-rojo-solido` (y `bg-verde-solido`); sobre `bg-oro` la letra queda oscura. Los dos bloques oscuros de `globals.css`
+  llevan los mismos colores y `contraste.test.ts` mide cada par en claro y en oscuro. Probar las pantallas nuevas en los dos modos.
 - Listas largas: nunca enteras de una vez. La lista de hallazgos (registrar y «Más → Lista de hallazgos») va con
   `BuscadorCatalogo`: buscador sin tildes y, sin nada escrito, las categorías con su cuenta (`filtrarCatalogo` en
   `src/lib/hallazgos.ts`). El patio muestra buscador desde `MIN_PARA_BUSCAR_EN_PATIO` vehículos (`filtrarPatio`), la
@@ -151,3 +156,13 @@ es solo para leer el privado). Cada uno se despliega aparte y hace lo suyo:
 
 Commits, push, despliegues, tocar Supabase / Vercel / GitHub / DNS, agregar dependencias o servicios externos, pasar
 algo de "Después de la demo" a la demo. Nunca `service_role` en la app, nunca claves en commits ni en el chat.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

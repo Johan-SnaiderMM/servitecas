@@ -97,7 +97,7 @@ export function AvisosPush({ llavePublica }: { llavePublica: string | null }) {
   const mostrarBoton = estado === "apagado" || estado === "encendido";
 
   return (
-    <section className="rounded-xl border border-linea bg-white p-4">
+    <section className="rounded-xl border border-linea bg-superficie p-4">
       <div className="flex items-start gap-3">
         {estado === "encendido" ? (
           <Bell className="mt-0.5 size-6 shrink-0" aria-hidden />

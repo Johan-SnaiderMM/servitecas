@@ -10,15 +10,80 @@
   /* 4,5:1 también sobre hueso (contraste.test.ts). */
   --color-tinta-2: #686872;
   --color-papel: #f9f9f6;
+  /* Tarjetas, campos y hojas: blanco en claro, un gris más claro que el fondo en oscuro. */
+  --color-superficie: #ffffff;
   --color-hueso: #f1f1ee;
   --color-linea: #e4e4e7;
   /* Borde de un CAMPO (input, select, textarea): 3:1 sobre blanco. `linea` es solo para tarjetas y separadores. */
   --color-borde-campo: #8b8b94;
   --color-oro: #e0a526;
   --color-rojo: #c8372d;
+  /* Relleno de botones y marcas con letra blanca encima (en modo oscuro `rojo` se aclara para leerse como texto). */
+  --color-rojo-solido: #c8372d;
   --color-verde: #2f7d4f;
+  --color-verde-solido: #2f7d4f;
   --color-azul: #1f4e8c;
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/*
+ * Modo oscuro. Sin elección, sigue al celular (`prefers-color-scheme`); en «Más → Apariencia» se puede fijar claro u
+ * oscuro (`data-tema` en <html>, ver src/lib/tema.ts). Los dos bloques de abajo llevan los MISMOS colores (una prueba lo
+ * compara). Solo en pantalla: al imprimir (el cartel de reservas) sigue la paleta clara. `rojo`, `azul` y `verde` se
+ * aclaran porque se usan como TEXTO; el relleno sólido con letra blanca usa `*-solido`. Sobre `oro` la letra sigue oscura (también la que hereda).
+ */
+:root {
+  color-scheme: light;
+}
+@media screen and (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    color-scheme: dark;
+    --color-tinta: #f4f4f5;
+    --color-tinta-2: #a1a1aa;
+    --color-papel: #111113;
+    --color-hueso: #232327;
+    --color-superficie: #1a1a1d;
+    --color-linea: #34343a;
+    --color-borde-campo: #7d7d87;
+    --color-rojo: #f2766b;
+    --color-azul: #7aa7e8;
+    --color-verde: #5fc98a;
+    /* Los grises de Tailwind que usa la app (bordes punteados, íconos, pulsado) se invierten. */
+    --color-zinc-200: #2e2e33;
+    --color-zinc-300: #3f3f46;
+    --color-zinc-400: #71717a;
+    --color-zinc-700: #d4d4d8;
+  }
+  :root:not([data-tema="claro"]) .bg-oro {
+    --color-tinta: #18181b;
+    --color-tinta-2: #3f3f46;
+    color: var(--color-tinta);
+  }
+}
+@media screen {
+  :root[data-tema="oscuro"] {
+    color-scheme: dark;
+    --color-tinta: #f4f4f5;
+    --color-tinta-2: #a1a1aa;
+    --color-papel: #111113;
+    --color-hueso: #232327;
+    --color-superficie: #1a1a1d;
+    --color-linea: #34343a;
+    --color-borde-campo: #7d7d87;
+    --color-rojo: #f2766b;
+    --color-azul: #7aa7e8;
+    --color-verde: #5fc98a;
+    /* Los grises de Tailwind que usa la app (bordes punteados, íconos, pulsado) se invierten. */
+    --color-zinc-200: #2e2e33;
+    --color-zinc-300: #3f3f46;
+    --color-zinc-400: #71717a;
+    --color-zinc-700: #d4d4d8;
+  }
+  :root[data-tema="oscuro"] .bg-oro {
+    --color-tinta: #18181b;
+    --color-tinta-2: #3f3f46;
+    color: var(--color-tinta);
+  }
 }
 
 html {

@@ -2,9 +2,9 @@ import { ETIQUETA_HALLAZGO, type EstadoHallazgo } from "@/lib/hallazgos";
 import { cn } from "@/lib/utils";
 
 const COLOR: Record<EstadoHallazgo, string> = {
-  pendiente: "border-oro bg-white text-tinta",
-  autorizado: "border-verde bg-white text-verde",
-  rechazado: "border-rojo bg-white text-rojo",
+  pendiente: "border-oro bg-superficie text-tinta",
+  autorizado: "border-verde bg-superficie text-verde",
+  rechazado: "border-rojo bg-superficie text-rojo",
   anulado: "border-dashed border-zinc-300 bg-hueso text-tinta-2",
 };
 

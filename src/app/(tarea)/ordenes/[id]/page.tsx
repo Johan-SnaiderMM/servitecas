@@ -97,7 +97,7 @@ export default async function Orden({
     <div className="space-y-5">
       <section>
         <h2 className={ETIQUETA}>Cliente</h2>
-        <div className="mt-2 rounded-xl border border-linea bg-white p-4">
+        <div className="mt-2 rounded-xl border border-linea bg-superficie p-4">
           <p className="text-lg font-semibold">{orden.cliente.nombre ?? "Sin nombre"}</p>
           <p className="text-base text-tinta-2">{formatearTelefono(orden.cliente.celular)}</p>
           <div className="mt-3">
@@ -126,7 +126,7 @@ export default async function Orden({
       <section>
         <h2 className={ETIQUETA}>Historia</h2>
         {/* Una orden larga junta muchos cambios: a la vista los últimos, lo anterior plegado. */}
-        <div className="mt-2 rounded-xl border border-linea bg-white">
+        <div className="mt-2 rounded-xl border border-linea bg-superficie">
           {anteriores.length > 0 && (
             <details className="border-b border-hueso">
               <summary className="flex min-h-12 cursor-pointer items-center px-4 text-base font-medium text-tinta-2">
@@ -144,7 +144,7 @@ export default async function Orden({
   const panelHallazgos = (
     <div className="space-y-3">
       {recien && orden.hallazgos.some((h) => h.id === recien && h.estado === "pendiente") && (
-        <p className="flex items-start gap-3 rounded-xl border border-linea bg-white p-4 text-base">
+        <p className="flex items-start gap-3 rounded-xl border border-linea bg-superficie p-4 text-base">
           <CircleCheck className="mt-0.5 size-6 shrink-0 text-verde" aria-hidden />
           <span>
             <strong>Hallazgo guardado.</strong> Pídele la autorización al cliente por WhatsApp: el mensaje ya va escrito.
@@ -227,7 +227,7 @@ export default async function Orden({
       <EncabezadoTarea titulo={`Orden #${orden.numero}`} volverA="/inicio" />
       {/* Con la orden abierta, el final deja sitio a la barra de abajo (una fila). */}
       <main className={cn("space-y-4 px-4 pt-5", abierta ? "pb-28" : "pb-6")}>
-        <section className="rounded-xl border border-linea bg-white p-4">
+        <section className="rounded-xl border border-linea bg-superficie p-4">
           <div className="flex flex-wrap items-center gap-3">
             <Placa placa={orden.vehiculo.placa} grande />
             <InsigniaEstado estado={orden.estado} />
@@ -245,7 +245,7 @@ export default async function Orden({
         </section>
 
         {nueva && abierta && (
-          <section className="rounded-xl border border-linea bg-white p-4">
+          <section className="rounded-xl border border-linea bg-superficie p-4">
             {/* Corto: debajo queda abierta la pestaña Fotos y «Tomar foto» tiene que verse sin bajar. */}
             <p className="flex items-start gap-3 text-base">
               <CircleCheck className="mt-0.5 size-6 shrink-0 text-verde" aria-hidden />

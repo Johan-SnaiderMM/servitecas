@@ -95,7 +95,7 @@ export function FormularioRecibir({ clave, jefes }: { clave: string; jefes: Jefe
           required
         />
         {conocido?.existe && !abierta && (
-          <p className="mt-2 flex items-start gap-2 rounded-xl border border-linea bg-white p-3 text-base">
+          <p className="mt-2 flex items-start gap-2 rounded-xl border border-linea bg-superficie p-3 text-base">
             <History className="mt-0.5 size-5 shrink-0 text-tinta-2" aria-hidden />
             <span>
               {/* Un vehículo cargado desde un archivo todavía no ha venido. */}
@@ -159,7 +159,7 @@ export function FormularioRecibir({ clave, jefes }: { clave: string; jefes: Jefe
                 onClick={() => alternarServicio(s)}
                 className={cn(
                   "min-h-12 rounded-full border px-4 text-base font-medium",
-                  marcado(s) ? "border-tinta bg-tinta text-white" : "border-linea bg-white text-tinta active:bg-hueso"
+                  marcado(s) ? "border-tinta bg-tinta text-papel" : "border-linea bg-superficie text-tinta active:bg-hueso"
                 )}
               >
                 {s}

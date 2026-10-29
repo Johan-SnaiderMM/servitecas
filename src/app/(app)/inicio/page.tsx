@@ -46,7 +46,7 @@ export default async function Inicio() {
 
           {patio.abiertas.length === 0 ? (
             <section className="mt-5 flex flex-col items-center rounded-xl border border-dashed border-zinc-300 bg-hueso px-4 py-8 text-center">
-              <span className="flex size-14 items-center justify-center rounded-full border border-linea bg-white">
+              <span className="flex size-14 items-center justify-center rounded-full border border-linea bg-superficie">
                 <CarFront className="size-7" aria-hidden />
               </span>
               <h2 className="mt-3 text-lg font-semibold">No hay vehículos en el patio</h2>

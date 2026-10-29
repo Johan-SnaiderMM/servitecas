@@ -2,12 +2,12 @@ import { ETIQUETA_ESTADO, type Estado } from "@/lib/ordenes";
 import { cn } from "@/lib/utils";
 
 const COLOR: Record<Estado, string> = {
-  recibido: "border-linea bg-white text-tinta",
-  diagnostico: "border-azul bg-white text-azul",
-  en_proceso: "border-oro bg-white text-tinta",
-  listo: "border-verde bg-white text-verde",
+  recibido: "border-linea bg-superficie text-tinta",
+  diagnostico: "border-azul bg-superficie text-azul",
+  en_proceso: "border-oro bg-superficie text-tinta",
+  listo: "border-verde bg-superficie text-verde",
   entregado: "border-linea bg-hueso text-tinta-2",
-  cancelada: "border-rojo bg-white text-rojo",
+  cancelada: "border-rojo bg-superficie text-rojo",
 };
 
 /** El estado de una orden como etiqueta: borde y letra del color del estado, nunca relleno fuerte. */

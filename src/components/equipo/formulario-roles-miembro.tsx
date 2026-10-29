@@ -73,7 +73,7 @@ function QuitarDelEquipo({ userId, nombre }: { userId: string; nombre: string })
           Quitar a {nombre} del equipo
         </Button>
       ) : (
-        <form action={accion} className="space-y-3 rounded-xl border border-rojo bg-white p-4">
+        <form action={accion} className="space-y-3 rounded-xl border border-rojo bg-superficie p-4">
           <input type="hidden" name="user_id" value={userId} />
           <p className="text-base">
             <strong>{nombre}</strong> perderá el acceso a la app en este mismo momento. Lo que registró se conserva.

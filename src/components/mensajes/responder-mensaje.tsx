@@ -81,14 +81,14 @@ export function ResponderMensaje({
         </p>
       )}
       {respondido && (
-        <div className="space-y-2 rounded-xl border border-oro bg-white p-3">
+        <div className="space-y-2 rounded-xl border border-oro bg-superficie p-3">
           <p className="text-base">Listo, ya está en su enlace. Avísale por WhatsApp para que lo lea:</p>
           {whatsapp ? (
             <a
               href={whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-tinta bg-tinta px-4 text-base font-medium text-white active:bg-zinc-700"
+              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-tinta bg-tinta px-4 text-base font-medium text-papel active:bg-zinc-700"
             >
               <MessageCircle className="size-5" aria-hidden />
               Avisarle por WhatsApp

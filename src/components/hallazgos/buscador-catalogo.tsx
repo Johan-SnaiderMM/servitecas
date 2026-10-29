@@ -54,7 +54,7 @@ export function BuscadorCatalogo<T extends Item>({
               <button
                 type="button"
                 onClick={() => setCategoria(c)}
-                className="flex min-h-16 w-full items-center justify-between gap-2 rounded-xl border border-linea bg-white px-3 py-2 text-left active:bg-hueso"
+                className="flex min-h-16 w-full items-center justify-between gap-2 rounded-xl border border-linea bg-superficie px-3 py-2 text-left active:bg-hueso"
               >
                 <span className="min-w-0">
                   <span className="block text-base font-medium leading-tight">{ETIQUETA_CATEGORIA[c]}</span>

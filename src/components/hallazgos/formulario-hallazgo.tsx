@@ -124,7 +124,7 @@ export function FormularioHallazgo({ ordenId, clave, catalogo }: { ordenId: stri
               <button
                 type="button"
                 onClick={() => elegir(i)}
-                className="flex min-h-14 w-full flex-col items-start rounded-xl border border-linea bg-white px-4 py-3 text-left active:bg-hueso"
+                className="flex min-h-14 w-full flex-col items-start rounded-xl border border-linea bg-superficie px-4 py-3 text-left active:bg-hueso"
               >
                 <span className="text-base font-medium leading-tight">{i.nombre}</span>
                 <span className="mt-0.5 text-base text-tinta-2">{ETIQUETA_CATEGORIA[i.categoria]}</span>
@@ -218,7 +218,7 @@ export function FormularioHallazgo({ ordenId, clave, catalogo }: { ordenId: stri
                       onClick={() => setFotos((actual) => actual.filter((x) => x !== f))}
                       className="absolute right-1 top-1 flex size-12 items-center justify-center rounded-full"
                     >
-                      <span className="flex size-8 items-center justify-center rounded-full border border-linea bg-white">
+                      <span className="flex size-8 items-center justify-center rounded-full border border-linea bg-superficie">
                         <X className="size-5" aria-hidden />
                       </span>
                     </button>

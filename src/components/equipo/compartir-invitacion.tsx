@@ -35,7 +35,7 @@ export function CompartirInvitacion({
 
   return (
     <div className="space-y-4">
-      <section className="rounded-xl border border-linea bg-white p-5 text-center">
+      <section className="rounded-xl border border-linea bg-superficie p-5 text-center">
         <p className="text-sm font-medium uppercase tracking-wider text-tinta-2">Código de {nombre}</p>
         <p className="mt-2 whitespace-nowrap text-3xl font-semibold tracking-widest min-[360px]:text-4xl">
           {formatearCodigo(codigo)}

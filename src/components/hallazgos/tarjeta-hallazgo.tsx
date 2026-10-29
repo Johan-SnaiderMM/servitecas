@@ -61,7 +61,7 @@ export function TarjetaHallazgo({
     <article
       className={cn(
         "rounded-xl border p-4",
-        h.estado === "anulado" ? "border-dashed border-zinc-300 bg-hueso" : "border-linea bg-white",
+        h.estado === "anulado" ? "border-dashed border-zinc-300 bg-hueso" : "border-linea bg-superficie",
         destacado && pendiente && "border-oro"
       )}
     >

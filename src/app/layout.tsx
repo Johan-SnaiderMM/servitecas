@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { COLOR_TEMA, MARCA } from "@/lib/marca";
+import { COLOR_TEMA, COLOR_TEMA_OSCURO, MARCA } from "@/lib/marca";
+import { SCRIPT_TEMA } from "@/lib/tema";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,14 +23,21 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1, // sin maximumScale: el zoom con los dedos sigue disponible
   viewportFit: "cover", // respeta las zonas seguras (notch, barra de gestos)
-  themeColor: COLOR_TEMA,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: COLOR_TEMA },
+    { media: "(prefers-color-scheme: dark)", color: COLOR_TEMA_OSCURO },
+  ],
   // El teclado del sistema reduce la altura de la página: las acciones de abajo quedan SOBRE el teclado.
   interactiveWidget: "resizes-content",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        {/* Pone el tema elegido antes de pintar, para que no se vea un destello del otro. */}
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
+      </head>
       <body>{children}</body>
     </html>
   );

@@ -17,10 +17,10 @@ export function botonVariantes({ variante = "primario", tamano = "md", bloque = 
     "disabled:border-dashed disabled:border-zinc-300 disabled:bg-hueso disabled:text-tinta-2",
     tamano === "lg" ? "min-h-14 text-base" : "min-h-12 text-base",
     bloque && "w-full",
-    variante === "primario" && "border-tinta bg-tinta text-white active:bg-zinc-700",
-    variante === "secundario" && "border-linea bg-white text-tinta active:bg-hueso",
+    variante === "primario" && "border-tinta bg-tinta text-papel active:bg-zinc-700",
+    variante === "secundario" && "border-linea bg-superficie text-tinta active:bg-hueso",
     variante === "fantasma" && "border-transparent bg-transparent text-tinta-2 underline underline-offset-4 active:bg-hueso",
-    variante === "peligro" && "border-rojo bg-rojo text-white active:bg-red-800"
+    variante === "peligro" && "border-rojo bg-rojo-solido text-white active:bg-red-800"
   );
 }
 
