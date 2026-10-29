@@ -81,3 +81,8 @@ Para montarla en Vercel: crea una base Neon vacía, conéctala al proyecto (Verc
 | `npm run esquema` | Regenera `supabase/esquema-completo.sql` |
 | `npm run iconos` | Regenera los íconos de la PWA |
 | `npm run vapid` | Genera las llaves de los avisos push |
+
+## Licencia
+
+Código publicado para leerlo y probar la demo. **Todos los derechos reservados**: no se permite copiarlo, modificarlo,
+usarlo ni desplegarlo sin autorización escrita. Ver [`LICENSE`](LICENSE).

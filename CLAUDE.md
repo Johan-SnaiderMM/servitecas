@@ -130,6 +130,18 @@ un proyecto anterior de taller. Se consultan, no se copian módulos de negocio.
   haga se borra cuando se recicla. No lleva ninguna clave ni cuenta externa (`servidor.test.ts` fija cuándo se enciende).
 - El servidor de desarrollo usa el puerto **3001** (Barberías usa el 3000).
 
+## Repositorios y despliegues
+
+El MISMO código vive en dos repositorios: `servitecas` (público, todos los derechos reservados en `LICENSE`, es la demo
+y el portafolio) y `servitecas-priv` (privado, de donde sale la versión real para los talleres que pagan). En esta
+carpeta, `origin` tiene las dos direcciones de subida: un `git push` actualiza los dos y nunca se separan (`privado`
+es solo para leer el privado). Cada uno se despliega aparte y hace lo suyo:
+- Demo: proyecto de Vercel `servitecas` (conectado al público), `DEMO_PUBLICA=1` + su `DATABASE_URL`, datos
+  inventados, sin entrada por contraseña.
+- Real (Fase 9, aún sin crear): su propio proyecto de Vercel conectado al privado y su propio Supabase, SIN `DEMO_*`
+  (no salen los botones de demo) y sin `DEMO_PUBLICA`.
+- Las llaves de la base real van SOLO en el proyecto real; nunca en el de la demo ni en el código.
+
 ## Comandos
 
 `npm run dev` · `npm run verificar` (lint + typecheck + test, obligatorio antes de dar algo por terminado) ·
