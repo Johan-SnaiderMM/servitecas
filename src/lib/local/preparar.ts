@@ -82,9 +82,17 @@ export async function prepararBasePostgres(motor: Motor): Promise<void> {
     // Dos consultas: Postgres resuelve los nombres al analizar, así que `demo.estado` no puede aparecer en una consulta
     // que se ejecuta cuando todavía no existe (ni siquiera dentro de un CASE).
     const hay = (await tx.query<{ hay: boolean }>(`select to_regclass('demo.estado') is not null as hay`)).rows[0].hay;
-    const guardada = hay
-      ? ((await tx.query<{ huella: string }>(`select huella from demo.estado where marca = $1`, [MARCA_DEMO])).rows[0]?.huella ?? null)
-      : null;
+    let guardada: string | null = null;
+    if (hay) {
+      // Si la base lleva la marca de OTRA demo (dos apps conectadas a la misma base por error), no se toca: recrearla
+      // borraría los datos de la otra.
+      const filas = await tx.query<{ marca: string; huella: string }>(`select marca, huella from demo.estado`);
+      const mia = filas.rows.find((f) => f.marca === MARCA_DEMO);
+      if (!mia) {
+        throw new Error("Esta base de datos pertenece a otra demo y no se toca. Usa una base vacía para DATABASE_URL.");
+      }
+      guardada = mia.huella;
+    }
     if (hay && guardada === huella) return; // ya está lista y al día
 
     if (hay) {

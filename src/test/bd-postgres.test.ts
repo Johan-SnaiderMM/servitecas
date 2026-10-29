@@ -192,6 +192,21 @@ describe("base Postgres compartida: seguridad", () => {
     }
   }, 120_000);
 
+  it("no pisa la demo de OTRA app si se conecta la misma base por error", async () => {
+    const red = await baseEnLaRed();
+    try {
+      const motor = red.copia();
+      await prepararBasePostgres(motor);
+      await motor.query(`update demo.estado set marca = 'otra-app-demo', huella = 'otra-huella'`);
+      await expect(prepararBasePostgres(motor)).rejects.toThrow(/pertenece a otra demo/);
+      // Sus datos siguen ahí, intactos.
+      expect((await motor.query<{ n: number }>(`select count(*)::int as n from public.talleres where es_demo`)).rows[0].n).toBe(1);
+      expect((await motor.query<{ marca: string }>(`select marca from demo.estado`)).rows[0].marca).toBe("otra-app-demo");
+    } finally {
+      await red.cerrar();
+    }
+  }, 120_000);
+
   it("varias copias del servidor que arrancan a la vez dejan UNA sola demo", async () => {
     const red = await baseEnLaRed();
     try {

@@ -4,6 +4,8 @@ PWA **mobile-first** y **multi-taller** para servitecas de Colombia: el cliente 
 
 Es una **demo**: todos los datos son ficticios. No es un sistema de gestión (no factura, no lleva inventario ni contabilidad).
 
+🌐 **Pruébala en vivo:** https://servitecas.vercel.app. Entra con «Probar como gerente» o «Probar como jefe de patio»; lo que hagas se borra solo.
+
 ## Qué hace
 
 - **Multi-taller:** cada taller ve solo lo suyo. Lo garantizan RLS y funciones en Postgres, y una prueba lo verifica.
